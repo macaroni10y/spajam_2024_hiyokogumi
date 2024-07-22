@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -10,10 +11,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Widget> _pages = <Widget>[
-    Container(color: CupertinoColors.systemRed),
-    Container(color: CupertinoColors.systemBlue),
-  ];
+  String anonymousUserId = "";
+  String signedInAt = "";
+
+  void _setup() async {
+    var credential = await FirebaseAuth.instance.signInAnonymously();
+    setState(() {
+      anonymousUserId = credential.user!.uid;
+      signedInAt = credential.user!.metadata.creationTime.toString();
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setup();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +34,29 @@ class _MyHomePageState extends State<MyHomePage> {
       tabBar: CupertinoTabBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.circle),
-            label: 'Tab 1',
+            icon: Icon(CupertinoIcons.person),
+            label: 'anonymousUserId',
           ),
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.add),
-            label: 'Tab 2',
+            icon: Icon(CupertinoIcons.clock),
+            label: 'cratedAt',
           ),
         ],
       ),
       tabBuilder: (BuildContext context, int index) {
         return CupertinoTabView(
           builder: (BuildContext context) {
-            return _pages[index];
+            return Center(
+                child: Container(
+                    height: 300,
+                    width: 300,
+                    color: index == 0
+                        ? CupertinoColors.systemBlue
+                        : CupertinoColors.systemRed,
+                    child: Center(
+                      child: Text(
+                          index == 0 ? anonymousUserId : signedInAt.toString()),
+                    )));
           },
         );
       },
