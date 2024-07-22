@@ -71,5 +71,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'spajam-2024-hiyokogumi.appspot.com',
     iosBundleId: 'com.example.spajam2024Hiyokogumi',
   );
-
 }
