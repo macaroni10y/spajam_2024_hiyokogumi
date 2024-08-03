@@ -47,26 +47,26 @@ class UserListPage extends StatelessWidget {
                         },
                       );
                     } else {
-                      return Center(
+                      return const Center(
                         child: CircularProgressIndicator(),
                       );
                     }
                   },
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CupertinoButton(
-                    child: const Icon(CupertinoIcons.add),
-                    onPressed: () {
-                      final randomValue = Random().nextInt(99);
-                      userRepository.addUser(
-                          User.create('sample $randomValue', randomValue));
-                    },
-                  ),
-                  const Text('add random user'),
-                ],
+              CupertinoButton(
+                onPressed: () {
+                  final randomValue = Random().nextInt(99);
+                  userRepository
+                      .addUser(User.create('sample $randomValue', randomValue));
+                },
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(CupertinoIcons.add),
+                    Text('add random user'),
+                  ],
+                ),
               )
             ],
           ),

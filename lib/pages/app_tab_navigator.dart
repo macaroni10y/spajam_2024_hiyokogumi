@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:spajam_2024_hiyokogumi/pages/image_page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/login_user_info.page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/user_list_page.dart';
 
@@ -21,18 +22,18 @@ class AppTabNavigator extends StatelessWidget {
             icon: Icon(CupertinoIcons.list_bullet),
             label: 'userList',
           ),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.photo), label: 'imageUpload'),
         ],
       ),
       tabBuilder: (BuildContext context, int index) {
         return CupertinoTabView(
           builder: (BuildContext context) {
-            switch (index) {
-              case 0:
-                return const LoginUserInfoPage();
-              case 1:
-              default:
-                return const UserListPage();
-            }
+            return switch (index) {
+              0 => const LoginUserInfoPage(),
+              1 => const UserListPage(),
+              _ => const ImagePage(),
+            };
           },
         );
       },
