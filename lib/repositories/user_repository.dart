@@ -29,7 +29,7 @@ class UserRepository {
     return _firestoreService.listenToCollection(collectionName, User.fromMap);
   }
 
-  Future<User?> getUser(String id) {
-    return _firestoreService.getItem(collectionName, id, User.fromMap);
+  Future<User?> getUser(String id) async {
+    return await _firestoreService.getItem(collectionName, id, User.fromMap);
   }
 }

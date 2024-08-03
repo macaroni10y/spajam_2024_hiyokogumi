@@ -32,7 +32,7 @@ class AppTabNavigator extends StatelessWidget {
             return switch (index) {
               0 => const LoginUserInfoPage(),
               1 => const UserListPage(),
-              _ => const ImagePage(),
+              _ => ImagePage(),
             };
           },
         );

@@ -18,7 +18,8 @@ class FirestoreService {
         : null;
   }
 
-  Future<void> addItem(String collection, Map<String, dynamic> data) {
+  Future<DocumentReference<Map<String, dynamic>>> addItem(
+      String collection, Map<String, dynamic> data) {
     return _db.collection(collection).add(data);
   }
 
