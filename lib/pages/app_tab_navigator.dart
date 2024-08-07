@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:spajam_2024_hiyokogumi/pages/image_page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/login_user_info.page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/user_list_page.dart';
+import 'package:spajam_2024_hiyokogumi/pages/video_calling_page.dart';
 
 /// 複数ページを切り替えられる下部タブを司る親ウィジェット
 class AppTabNavigator extends StatelessWidget {
@@ -24,6 +25,9 @@ class AppTabNavigator extends StatelessWidget {
           ),
           BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.photo), label: 'imageUpload'),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.video_camera_solid),
+              label: 'videoCalling'),
         ],
       ),
       tabBuilder: (BuildContext context, int index) {
@@ -32,7 +36,9 @@ class AppTabNavigator extends StatelessWidget {
             return switch (index) {
               0 => const LoginUserInfoPage(),
               1 => const UserListPage(),
-              _ => ImagePage(),
+              2 => ImagePage(),
+              3 => const VideoCallingPage(),
+              _ => const Center(child: Text('Not Found')),
             };
           },
         );
