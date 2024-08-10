@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spajam_2024_hiyokogumi/pages/friend_search_page.dart';
 
@@ -33,8 +34,8 @@ class FriendListPage extends StatelessWidget {
             ),
           ]),
       body: FutureBuilder<List<Friendship>>(
-        future: friendshipRepository
-            .getFriendsMock('TODO 自分のユーザIDを入れる。ただ、モックで返せてるのでこれでもイイ'),
+        future: friendshipRepository.getFriendsMock(
+            FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
