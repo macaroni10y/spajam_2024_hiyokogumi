@@ -9,25 +9,24 @@ class FriendListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        leading: CupertinoButton(
-          // padding: EdgeInsets.zero, // アイコンボタンのパディングを調整
-          onPressed: () {
-            Navigator.pop(context); // 戻るボタンの動作を追加
-          },
-          child: const Icon(CupertinoIcons.back),
-        ),
-        middle: Text('フレンド一覧'),
-        trailing: CupertinoButton(
-          child: const Icon(CupertinoIcons.add),
-          onPressed: ()  {
-             Navigator.push(context, CupertinoPageRoute(
+          leading: CupertinoButton(
+            // padding: EdgeInsets.zero, // アイコンボタンのパディングを調整
+            onPressed: () {
+              Navigator.pop(context); // 戻るボタンの動作を追加
+            },
+            child: const Icon(CupertinoIcons.back),
+          ),
+          middle: Text('フレンド一覧'),
+          trailing: CupertinoButton(
+            child: const Icon(CupertinoIcons.add),
+            onPressed: () {
+              Navigator.push(context, CupertinoPageRoute(
                 builder: (context) {
                   return FriendSearchPage();
                 },
-            ));
+              ));
             },
-        )
-      ),
+          )),
       child: ListView(children: [
         _menuItem(
             "xxxxxxxx",
