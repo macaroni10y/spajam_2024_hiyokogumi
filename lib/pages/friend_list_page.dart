@@ -12,26 +12,39 @@ class FriendListPage extends StatelessWidget {
         middle: Text('フレンド一覧'),
         trailing: IconButton(onPressed: null, icon: Icon(Icons.add)),
       ),
-      child: ListView(
-          children: [
-            _menuItem("xxxxxxxx", Image(image:  AssetImage("assets/images/placeholder_usagi.png")), false),
-            _menuItem("yyyyyyyy", Image(image:  AssetImage("assets/images/placeholder_usagi.png")), true),
-            _menuItem("zzzzzzzz", Image(image:  AssetImage("assets/images/placeholder_usagi.png")), false),
-            _menuItem("aaaaaaaa", Image(image:  AssetImage("assets/images/placeholder_usagi.png")), false),
-            _menuItem("cccccccc", Image(image:  AssetImage("assets/images/placeholder_usagi.png")), false),
-          ]
-      ),
+      child: ListView(children: [
+        _menuItem(
+            "xxxxxxxx",
+            Image(image: AssetImage("assets/images/placeholder_usagi.png")),
+            false),
+        _menuItem(
+            "yyyyyyyy",
+            Image(image: AssetImage("assets/images/placeholder_usagi.png")),
+            true),
+        _menuItem(
+            "zzzzzzzz",
+            Image(image: AssetImage("assets/images/placeholder_usagi.png")),
+            false),
+        _menuItem(
+            "aaaaaaaa",
+            Image(image: AssetImage("assets/images/placeholder_usagi.png")),
+            false),
+        _menuItem(
+            "cccccccc",
+            Image(image: AssetImage("assets/images/placeholder_usagi.png")),
+            false),
+      ]),
     );
   }
 
   Widget _menuItem(String userName, Image image, bool isCrossing) {
     final containerColor = isCrossing ? Colors.lightBlue : Colors.white;
     return GestureDetector(
-      child:Container(
+      child: Container(
           padding: EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-              border:  Border(bottom: BorderSide(width: 1.0, color: Colors.grey)),
-              color: containerColor,
+            border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey)),
+            color: containerColor,
           ),
           child: Row(
             children: <Widget>[
@@ -43,14 +56,10 @@ class FriendListPage extends StatelessWidget {
               ),
               Text(
                 'UserName: ' + userName,
-                style: TextStyle(
-                    color:Colors.black,
-                    fontSize: 18.0
-                ),
+                style: TextStyle(color: Colors.black, fontSize: 18.0),
               ),
             ],
-          )
-      ),
+          )),
       onTap: () {
         print("onTap called.");
       },
