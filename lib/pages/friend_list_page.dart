@@ -8,21 +8,23 @@ class FriendListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: const CupertinoNavigationBar(
+        leading: IconButton(onPressed: null, icon: Icon(Icons.arrow_back)),
         middle: Text('フレンド一覧'),
+        trailing: IconButton(onPressed: null, icon: Icon(Icons.add)),
       ),
       child: ListView(
           children: [
-            _menuItem("メニュー1", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
-            _menuItem("メニュー2", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
-            _menuItem("メニュー3", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
-            _menuItem("メニュー4", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
-            _menuItem("メニュー5", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
+            _menuItem("xxxxxxxx", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
+            _menuItem("yyyyyyyy", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
+            _menuItem("zzzzzzzz", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
+            _menuItem("aaaaaaaa", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
+            _menuItem("cccccccc", Image(image:  AssetImage("assets/images/placeholder_usagi.png"))),
           ]
       ),
     );
   }
 
-  Widget _menuItem(String title, Image image) {
+  Widget _menuItem(String userName, Image image) {
     return GestureDetector(
       child:Container(
           padding: EdgeInsets.all(8.0),
@@ -38,7 +40,7 @@ class FriendListPage extends StatelessWidget {
                 width: 40,
               ),
               Text(
-                title,
+                'UserName: ' + userName,
                 style: TextStyle(
                     color:Colors.black,
                     fontSize: 18.0
