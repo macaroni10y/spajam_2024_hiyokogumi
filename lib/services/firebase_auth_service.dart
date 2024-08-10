@@ -16,3 +16,9 @@ Future<void> updateDisplayName(String displayName) async {
     }
   }
 }
+
+/// firebaseのdisplayNameを取得する
+String? getDisplayName() {
+  User? user = FirebaseAuth.instance.currentUser;
+  return user?.displayName;
+}
