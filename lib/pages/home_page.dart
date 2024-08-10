@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:spajam_2024_hiyokogumi/pages/friend_list_page.dart';
+import 'package:spajam_2024_hiyokogumi/pages/setting_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -56,7 +57,10 @@ class _HomePageState extends State<HomePage> {
                     // ハンバーガーメニュー
                     MaterialButton(
                       onPressed: () {
-                        // TODO 設定画面に遷移させる
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SettingPage()));
                       },
                       child: Image(
                           width: 35,
@@ -143,7 +147,10 @@ class _HomePageState extends State<HomePage> {
                     // ハンバーガーメニュー
                     MaterialButton(
                       onPressed: () {
-                        // TODO 設定画面に遷移させる
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const SettingPage()));
                       },
                       child: Image(
                           width: 35,
