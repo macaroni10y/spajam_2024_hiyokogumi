@@ -86,20 +86,21 @@ class _HomePageState extends State<HomePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 50.0),
-                child: Center(child: Text('my character')),
+                child: Center(
+                  child: Image(
+                      width: 200,
+                      image: AssetImage('assets/images/ホーム画面/ぷぅぷぅ_静止.png')),
+                ),
               ),
             ],
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 25.0),
-            child: ElevatedButton(
+            child: MaterialButton(
               onPressed: () {},
-              child: Text(
-                '散歩に行く',
-                style: TextStyle(color: Colors.black),
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.grey),
+              child: Image(
+                width: 200,
+                image: AssetImage('assets/images/ホーム画面/散歩するボタン.png'),
               ),
             ),
           ),
