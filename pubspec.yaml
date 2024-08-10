@@ -29,5 +29,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-#    - assets/images/foo/bar/
-#    - assets/audio/foo/bar
+    - assets/images/おさんぽ画面/
+    - assets/images/フレンド登録画面/
+    - assets/images/ホーム画面/
+    - assets/images/設定画面/
