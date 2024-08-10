@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:spajam_2024_hiyokogumi/pages/friend_search_page.dart';
 
 import '../models/friendship.dart';
 import '../repositories/friendship_repository.dart';
+import '../services/firebase_auth_service.dart';
 
 class FriendListPage extends StatelessWidget {
   const FriendListPage({super.key});
@@ -34,8 +34,7 @@ class FriendListPage extends StatelessWidget {
             ),
           ]),
       body: FutureBuilder<List<Friendship>>(
-        future: friendshipRepository.getFriendsMock(
-            FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト'),
+        future: friendshipRepository.getFriendsMock(getDisplayName() ?? 'ゲスト'),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

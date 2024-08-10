@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:spajam_2024_hiyokogumi/pages/friend_list_page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/setting_page.dart';
 
+import '../helper/location_tracking_helper.dart';
+import '../services/firebase_auth_service.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -10,9 +13,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController myController = TextEditingController();
-
   bool isWalking = false;
+  late LocationTrackingHelper _locationTrackingHelper;
+
+  @override
+  void initState() {
+    super.initState();
+    _locationTrackingHelper = LocationTrackingHelper.instance;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +104,8 @@ class _HomePageState extends State<HomePage> {
             ),
             MaterialButton(
               onPressed: () {
+                _locationTrackingHelper.startTracking(
+                    getDisplayName() ?? 'guest', 10);
                 setState(() {
                   isWalking = true;
                 });
@@ -170,6 +180,7 @@ class _HomePageState extends State<HomePage> {
             ),
             MaterialButton(
               onPressed: () {
+                _locationTrackingHelper.stopTracking();
                 setState(() {
                   isWalking = false;
                 });
