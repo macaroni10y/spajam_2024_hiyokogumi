@@ -31,7 +31,10 @@ class _SettingPageState extends State<SettingPage> {
                     top: 5,
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        FocusScope.of(context).unfocus();
+                        Future.delayed(const Duration(milliseconds: 300), () {
+                          Navigator.of(context).pop();
+                        });
                       },
                       child: Container(
                         width: 50,
