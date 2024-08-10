@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool isWalking = false;
+  bool isDarkMode = false;
   late LocationTrackingHelper _locationTrackingHelper;
 
   @override
@@ -124,74 +125,84 @@ class _HomePageState extends State<HomePage> {
   /// さんぽ中の画面を作成する
   Scaffold buildWalkingScaffold(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/おさんぽ画面/背景画像.png"),
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Image.asset(
+              "assets/images/おさんぽ画面/背景画像.png",
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-                margin: const EdgeInsets.only(left: 12.0, right: 12),
-                height: 100,
-                color: Colors.transparent,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // 画面を暗くするボタン
-                    MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const FriendListPage()));
-                      },
-                      child: const Image(
-                          width: 150,
-                          image: AssetImage(
-                              'assets/images/おさんぽ画面/画面を暗くするボタン.png')),
-                    ),
-                    // ハンバーガーメニュー
-                    MaterialButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SettingPage()));
-                      },
-                      child: Image(
-                          width: 35,
-                          image: AssetImage(
-                              'assets/images/おさんぽ画面/ハンバーガーメニューアイコン.png')),
-                    ),
-                  ],
-                )),
-            // 余白調整用
-            Container(
-              height: 172,
-            ),
-            Center(
-              child: Image(
-                  width: 350,
-                  image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif')),
-            ),
-            MaterialButton(
-              onPressed: () {
-                _locationTrackingHelper.stopTracking();
-                setState(() {
-                  isWalking = false;
-                });
-              },
-              child: Image(
-                width: 240,
-                image: AssetImage('assets/images/おさんぽ画面/散歩を終わるボタン.png'),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                  margin: const EdgeInsets.only(left: 12.0, right: 12),
+                  height: 100,
+                  color: Colors.transparent,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // 画面を暗くするボタン
+                      MaterialButton(
+                        onPressed: () {
+                          setState(() {
+                            isDarkMode = true;
+                          });
+                        },
+                        child: const Image(
+                            width: 150,
+                            image: AssetImage(
+                                'assets/images/おさんぽ画面/画面を暗くするボタン.png')),
+                      ),
+                      // ハンバーガーメニュー
+                      MaterialButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SettingPage()));
+                        },
+                        child: Image(
+                            width: 35,
+                            image: AssetImage(
+                                'assets/images/おさんぽ画面/ハンバーガーメニューアイコン.png')),
+                      ),
+                    ],
+                  )),
+              // 余白調整用
+              Container(
+                height: 172,
               ),
-            ),
-          ],
-        ),
+              Center(
+                child: Image(
+                    width: 350,
+                    image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif')),
+              ),
+              MaterialButton(
+                onPressed: () {
+                  _locationTrackingHelper.stopTracking();
+                  setState(() {
+                    isWalking = false;
+                  });
+                },
+                child: Image(
+                  width: 240,
+                  image: AssetImage('assets/images/おさんぽ画面/散歩を終わるボタン.png'),
+                ),
+              ),
+            ],
+          ),
+          if (isDarkMode)
+            GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isDarkMode = false;
+                  });
+                },
+                child: Opacity(
+                    opacity: 0.5, child: Container(color: Colors.black))),
+        ],
       ),
     );
   }
