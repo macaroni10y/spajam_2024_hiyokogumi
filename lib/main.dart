@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:spajam_2024_hiyokogumi/pages/home_page.dart';
 
 import 'firebase_options.dart';
-import 'pages/app_tab_navigator.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
