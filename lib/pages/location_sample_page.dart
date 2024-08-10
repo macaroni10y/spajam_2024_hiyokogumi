@@ -88,6 +88,18 @@ class _LocationSamplePageState extends State<LocationSamplePage> {
                   }
                 },
               ),
+              // ユーザの位置情報履歴が更新されるたびに、導き出されるポイントも更新
+              StreamBuilder<int>(
+                stream: _locationHistoryRepository.listenToTotalPoints(uid),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final int totalPoints = snapshot.data!;
+                    return Text('Total Points: $totalPoints');
+                  } else {
+                    return const Text('No data');
+                  }
+                },
+              )
             ],
           ),
         ),

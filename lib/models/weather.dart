@@ -9,14 +9,14 @@ class Weather {
   /// 絶対温度
   final double temperature;
   final double windSpeed;
-  final double humidity;
+  final int humidity;
 
   Weather({
     required this.type,
     required this.cityName,
     required this.temperature,
     this.windSpeed = 0.0,
-    this.humidity = 0.0,
+    this.humidity = 0,
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
