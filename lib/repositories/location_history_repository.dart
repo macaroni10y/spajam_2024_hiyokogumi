@@ -1,5 +1,6 @@
 import 'package:spajam_2024_hiyokogumi/models/location_history.dart';
 
+import '../helper/walking_point_calculator.dart';
 import '../services/firestore_service.dart';
 
 class LocationHistoryRepository {
@@ -25,8 +26,36 @@ class LocationHistoryRepository {
     return allHistories.where((element) => element.userId == userId).toList();
   }
 
-  Stream<List<LocationHistory>> listenToLocations() => _firestoreService
-      .listenToCollection(collectionName, LocationHistory.fromMap);
+  Stream<List<LocationHistory>> listenToLocations() {
+    return _firestoreService.listenToCollection(
+        collectionName, LocationHistory.fromMap);
+  }
+
+  /// 特定のユーザの最新の位置情報をstreamで取得する
+  Stream<LocationHistory?> listenToLatestLocation(String userId) {
+    return listenToLocations().map((locations) {
+      final userLocations =
+          locations.where((element) => element.userId == userId).toList();
+      userLocations.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+      return userLocations.isNotEmpty ? userLocations.first : null;
+    });
+  }
+
+  /// 特定のユーザの合計ポイントをstreamで取得する
+  /// 位置情報履歴が更新されると、自動的に再計算されて通知される
+  Stream<int> listenToTotalPoints(String userId) {
+    return listenToLocations().map((locations) {
+      final userLocations =
+          locations.where((element) => element.userId == userId).toList();
+      return calculateTotalPoints(userLocations);
+    });
+  }
+
+  /// 特定のユーザの合計ポイントを取得する
+  Future<int> getTotalPoints(String userId) async {
+    final histories = await getLocationHistories(userId);
+    return calculateTotalPoints(histories);
+  }
 
   /// 特定のユーザの位置情報履歴をすべて削除する
   Future<void> deleteAllHistories(String userId) async {

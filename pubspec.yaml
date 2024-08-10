@@ -19,11 +19,25 @@ dependencies:
   carousel_slider: ^4.2.1
   geolocator: ^11.1.0
   http: ^1.1.0
+  flutter_native_splash: ^2.3.7
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
+
+# you need to run `dart run flutter_native_splash:create` to generate splash
+flutter_native_splash:
+  color: '#FFD72E'
+  image: 'assets/images/placeholder_usagi.png'
+  fullscreen: true
+
+# you need to run `dart run flutter_launcher_icons:main` to generate icons
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/placeholder_usagi.png"
 
 flutter:
   uses-material-design: true

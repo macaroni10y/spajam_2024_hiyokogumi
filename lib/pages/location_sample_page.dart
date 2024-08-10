@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:spajam_2024_hiyokogumi/helper/location_tracking_helper.dart';
@@ -6,6 +5,7 @@ import 'package:spajam_2024_hiyokogumi/models/weather.dart';
 import 'package:spajam_2024_hiyokogumi/repositories/location_history_repository.dart';
 
 import '../models/location_history.dart';
+import '../services/firebase_auth_service.dart';
 
 /// 位置情報履歴のトラッキングを行うサンプルページ
 class LocationSamplePage extends StatefulWidget {
@@ -34,7 +34,7 @@ class _LocationSamplePageState extends State<LocationSamplePage> {
 
   @override
   Widget build(BuildContext context) {
-    final String uid = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
+    final String uid = getDisplayName() ?? 'guest';
     return Scaffold(
       appBar: const CupertinoNavigationBar(
         middle: Text('LocationSample'),
@@ -88,6 +88,18 @@ class _LocationSamplePageState extends State<LocationSamplePage> {
                   }
                 },
               ),
+              // ユーザの位置情報履歴が更新されるたびに、導き出されるポイントも更新
+              StreamBuilder<int>(
+                stream: _locationHistoryRepository.listenToTotalPoints(uid),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final int totalPoints = snapshot.data!;
+                    return Text('Total Points: $totalPoints');
+                  } else {
+                    return const Text('No data');
+                  }
+                },
+              )
             ],
           ),
         ),
