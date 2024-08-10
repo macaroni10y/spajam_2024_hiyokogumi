@@ -8,7 +8,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
   TextEditingController myController = TextEditingController();
 
   String userName = '';
@@ -25,7 +24,9 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.blue,
         title: Center(
-          child: Text(userName,),
+          child: Text(
+            userName,
+          ),
         ),
         leading: Builder(
           builder: (context) {
@@ -42,13 +43,13 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: [
             DrawerHeader(child: Text('設定')),
-
-            const SizedBox(height:  25,),
-
+            const SizedBox(
+              height: 25,
+            ),
             const Text('ユーザーid'),
-
-            const SizedBox(height:  25,),
-
+            const SizedBox(
+              height: 25,
+            ),
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: TextField(
@@ -59,9 +60,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-
-            const SizedBox(height:  25,),
-
+            const SizedBox(
+              height: 25,
+            ),
             ElevatedButton(
               onPressed: () {
                 setUserName();
@@ -89,14 +90,13 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-
           Padding(
             padding: const EdgeInsets.only(bottom: 25.0),
             child: ElevatedButton(
               onPressed: () {},
               child: Text(
                 '散歩に行く',
-                style: TextStyle(color:  Colors.black),
+                style: TextStyle(color: Colors.black),
               ),
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.grey),
