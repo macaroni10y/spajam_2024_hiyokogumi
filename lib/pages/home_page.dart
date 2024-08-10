@@ -1,7 +1,5 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import '../services/firebase_auth_service.dart';
+import 'package:spajam_2024_hiyokogumi/pages/friend_list_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,93 +11,87 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController myController = TextEditingController();
 
+  /// TODO お散歩中かどうかに使いたいけどまだ何もしてない
+  bool isWalking = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: Center(
-          child: Text(
-            FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト',
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/ホーム画面/背景画像.png"),
+            fit: BoxFit.cover,
           ),
         ),
-        leading: Builder(
-          builder: (context) {
-            return IconButton(
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
-              icon: const Icon(Icons.menu),
-            );
-          },
-        ),
-      ),
-      drawer: Drawer(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            DrawerHeader(child: Text('設定')),
-            const SizedBox(
-              height: 25,
+            Container(
+                margin: const EdgeInsets.only(left: 12.0, right: 12),
+                height: 100,
+                color: Colors.transparent,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // フレンドボタン
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FriendListPage()));
+                      },
+                      child: const Image(
+                          width: 150,
+                          image: AssetImage('assets/images/ホーム画面/フレンドボタン.png')),
+                    ),
+                    // ハンバーガーメニュー
+                    MaterialButton(
+                      onPressed: () {
+                        // TODO 設定画面に遷移させる
+                      },
+                      child: Image(
+                          width: 35,
+                          image: AssetImage(
+                              'assets/images/ホーム画面/ハンバーガーメニューアイコン.png')),
+                    ),
+                  ],
+                )),
+            // 余白調整用
+            Container(
+              height: 60,
             ),
-            const Text('ユーザーid'),
-            const SizedBox(
-              height: 25,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: TextField(
-                controller: myController,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'ユーザーid',
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Center(
+                    child: Image(
+                        width: 230,
+                        image: AssetImage(
+                            'assets/images/ホーム画面/吹き出し_お散歩したいぷぅ.png')),
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(
+                    child: Image(
+                        width: 230,
+                        image: AssetImage('assets/images/ホーム画面/ぷぅぷぅ_静止.png')),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(
-              height: 25,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                updateDisplayName(myController.text);
-                Navigator.pop(context);
-              },
-              child: const Text(
-                'OK',
-                style: TextStyle(color: Colors.black),
-              ),
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.grey),
+            MaterialButton(
+              onPressed: () {},
+              child: Image(
+                width: 240,
+                image: AssetImage('assets/images/ホーム画面/散歩するボタン.png'),
               ),
             ),
           ],
         ),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 50.0),
-                child: Center(
-                  child: Image(
-                      width: 200,
-                      image: AssetImage('assets/images/ホーム画面/ぷぅぷぅ_静止.png')),
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 25.0),
-            child: MaterialButton(
-              onPressed: () {},
-              child: Image(
-                width: 200,
-                image: AssetImage('assets/images/ホーム画面/散歩するボタン.png'),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }
