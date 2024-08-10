@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:spajam_2024_hiyokogumi/pages/image_page.dart';
+import 'package:spajam_2024_hiyokogumi/pages/location_sample_page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/login_user_info.page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/user_list_page.dart';
 
@@ -23,6 +24,10 @@ class AppTabNavigator extends StatelessWidget {
             label: 'userList',
           ),
           BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.location),
+            label: 'locationSample',
+          ),
+          BottomNavigationBarItem(
               icon: Icon(CupertinoIcons.photo), label: 'imageUpload'),
         ],
       ),
@@ -32,6 +37,7 @@ class AppTabNavigator extends StatelessWidget {
             return switch (index) {
               0 => const LoginUserInfoPage(),
               1 => const UserListPage(),
+              2 => const LocationSamplePage(),
               _ => ImagePage(),
             };
           },
