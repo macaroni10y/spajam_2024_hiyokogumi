@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../services/firebase_auth_service.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,14 +13,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController myController = TextEditingController();
 
-  String userName = '';
-
-  void setUserName() {
-    setState(() {
-      userName = myController.text;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +20,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.blue,
         title: Center(
           child: Text(
-            userName,
+            FirebaseAuth.instance.currentUser?.displayName ?? 'ゲスト',
           ),
         ),
         leading: Builder(
@@ -65,7 +60,7 @@ class _HomePageState extends State<HomePage> {
             ),
             ElevatedButton(
               onPressed: () {
-                setUserName();
+                updateDisplayName(myController.text);
                 Navigator.pop(context);
               },
               child: const Text(
