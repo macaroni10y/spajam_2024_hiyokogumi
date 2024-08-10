@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:spajam_2024_hiyokogumi/models/location_history.dart';
 import 'package:spajam_2024_hiyokogumi/pages/friend_list_page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/setting_page.dart';
 
 import '../helper/location_tracking_helper.dart';
+import '../models/weather.dart';
 import '../repositories/location_history_repository.dart';
 import '../services/firebase_auth_service.dart';
 
@@ -190,6 +192,25 @@ class _HomePageState extends State<HomePage> {
                             ),
                           );
                         }),
+                    // このようにして現在の天気を利用できる
+                    StreamBuilder<LocationHistory?>(
+                        stream:
+                            _locationHistoryRepository.listenToLatestLocation(
+                                getDisplayName() ?? 'guest'),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData && snapshot.data != null) {
+                            final location = snapshot.data;
+                            return _getWeatherIcon(location!);
+                          } else {
+                            return const Text(
+                              '位置情報取得中...',
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                              ),
+                            );
+                          }
+                        })
                   ],
                 ),
               ),
@@ -224,5 +245,14 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  Icon _getWeatherIcon(LocationHistory locationHistory) {
+    return switch (locationHistory.weatherType) {
+      WeatherType.clear => const Icon(Icons.sunny),
+      WeatherType.clouds => const Icon(Icons.cloud),
+      WeatherType.rain => const Icon(Icons.umbrella),
+      _ => const Icon(Icons.error)
+    };
   }
 }

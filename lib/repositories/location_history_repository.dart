@@ -31,6 +31,16 @@ class LocationHistoryRepository {
         collectionName, LocationHistory.fromMap);
   }
 
+  /// 特定のユーザの最新の位置情報をstreamで取得する
+  Stream<LocationHistory?> listenToLatestLocation(String userId) {
+    return listenToLocations().map((locations) {
+      final userLocations =
+          locations.where((element) => element.userId == userId).toList();
+      userLocations.sort((a, b) => b.timestamp.compareTo(a.timestamp));
+      return userLocations.isNotEmpty ? userLocations.first : null;
+    });
+  }
+
   /// 特定のユーザの合計ポイントをstreamで取得する
   /// 位置情報履歴が更新されると、自動的に再計算されて通知される
   Stream<int> listenToTotalPoints(String userId) {
