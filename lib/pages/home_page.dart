@@ -3,6 +3,7 @@ import 'package:spajam_2024_hiyokogumi/pages/friend_list_page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/setting_page.dart';
 
 import '../helper/location_tracking_helper.dart';
+import '../repositories/location_history_repository.dart';
 import '../services/firebase_auth_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,11 +17,13 @@ class _HomePageState extends State<HomePage> {
   bool isWalking = false;
   bool isDarkMode = false;
   late LocationTrackingHelper _locationTrackingHelper;
+  late LocationHistoryRepository _locationHistoryRepository;
 
   @override
   void initState() {
     super.initState();
     _locationTrackingHelper = LocationTrackingHelper.instance;
+    _locationHistoryRepository = LocationHistoryRepository.instance;
   }
 
   @override
@@ -173,6 +176,22 @@ class _HomePageState extends State<HomePage> {
               // 余白調整用
               Container(
                 height: 172,
+                child: Row(
+                  children: [
+                    StreamBuilder<int>(
+                        stream: _locationHistoryRepository
+                            .listenToTotalPoints(getDisplayName() ?? 'guest'),
+                        builder: (context, snapshot) {
+                          return Text(
+                            'さんぽスコア: ${snapshot.data ?? 0}',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                          );
+                        }),
+                  ],
+                ),
               ),
               Center(
                 child: Image(

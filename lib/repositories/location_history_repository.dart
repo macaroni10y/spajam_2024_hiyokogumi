@@ -41,6 +41,12 @@ class LocationHistoryRepository {
     });
   }
 
+  /// 特定のユーザの合計ポイントを取得する
+  Future<int> getTotalPoints(String userId) async {
+    final histories = await getLocationHistories(userId);
+    return calculateTotalPoints(histories);
+  }
+
   /// 特定のユーザの位置情報履歴をすべて削除する
   Future<void> deleteAllHistories(String userId) async {
     final histories = await getLocationHistories(userId);
