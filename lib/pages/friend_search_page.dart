@@ -57,33 +57,34 @@ class FriendSearchPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       SizedBox(height: 120),
-                      Stack(
-                        children: [
-                          Positioned.fill(
-                              left: 80,
-                              right: 80,
-                              child: Image.asset('assets/images/フレンド登録画面/ユーザIDラベル_テキストボックス.png',
-                                fit: BoxFit.fill,
-                              )
+                      Stack(children: [
+                        Positioned.fill(
+                            left: 80,
+                            right: 80,
+                            child: Image.asset(
+                              'assets/images/フレンド登録画面/ユーザIDラベル_テキストボックス.png',
+                              fit: BoxFit.fill,
+                            )),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(80, 16, 80, 0),
+                          child: CupertinoTextField(
+                            padding: EdgeInsets.fromLTRB(24, 24, 24, 12),
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              // borderRadius: BorderRadius.circular(12),
+                            ),
                           ),
-                          Padding(padding: EdgeInsets.fromLTRB(80, 16, 80, 0),
-                            child: CupertinoTextField(
-                              padding: EdgeInsets.fromLTRB(24, 24, 24, 12),
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                // borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),)
-                        ]
-                      ),
+                        )
+                      ]),
                       // SizedBox(height: 0),
                       CupertinoButton(
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(96, 24, 96, 0),
                           child: Positioned.fill(
-                              child: Image.asset('assets/images/フレンド登録画面/OKボタン.png',
-                                fit: BoxFit.fill,
-                              )),
+                              child: Image.asset(
+                            'assets/images/フレンド登録画面/OKボタン.png',
+                            fit: BoxFit.fill,
+                          )),
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();
