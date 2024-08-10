@@ -1,11 +1,14 @@
 import 'dart:async';
 
+import 'package:spajam_2024_hiyokogumi/models/weather.dart';
 import 'package:spajam_2024_hiyokogumi/repositories/location_history_repository.dart';
+import 'package:spajam_2024_hiyokogumi/services/weather_service.dart';
 
 import '../models/location_history.dart';
 import '../services/device_location_service.dart';
 
 /// 位置情報の取得と保存を行うヘルパークラス
+/// 位置情報に紐づいて天気の情報も取得して保存する
 class LocationTrackingHelper {
   final DeviceLocationService _deviceLocationService =
       DeviceLocationService.instance;
@@ -26,11 +29,15 @@ class LocationTrackingHelper {
     }
     _timer = Timer.periodic(Duration(seconds: intervalSeconds), (timer) async {
       final location = await _deviceLocationService.getCurrentPosition();
+      Weather weather =
+          await fetchWeather(location.latitude, location.longitude);
       await _locationHistoryRepository.addLocationHistory(
         LocationHistory.create(
           userId,
           location.latitude,
           location.longitude,
+          weather.type,
+          weather.temperature,
           location.timestamp,
         ),
       );

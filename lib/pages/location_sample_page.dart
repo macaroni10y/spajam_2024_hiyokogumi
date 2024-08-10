@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:spajam_2024_hiyokogumi/helper/location_tracking_helper.dart';
+import 'package:spajam_2024_hiyokogumi/models/weather.dart';
 import 'package:spajam_2024_hiyokogumi/repositories/location_history_repository.dart';
 
 import '../models/location_history.dart';
@@ -33,27 +35,27 @@ class _LocationSamplePageState extends State<LocationSamplePage> {
   @override
   Widget build(BuildContext context) {
     final String uid = FirebaseAuth.instance.currentUser?.uid ?? 'guest';
-    return CupertinoPageScaffold(
-      navigationBar: const CupertinoNavigationBar(
+    return Scaffold(
+      appBar: const CupertinoNavigationBar(
         middle: Text('LocationSample'),
       ),
-      child: SafeArea(
+      body: SafeArea(
         child: Center(
           child: Column(
             children: [
-              CupertinoButton(
+              MaterialButton(
                 child: const Text('10秒ごとに位置情報レコードを記録'),
                 onPressed: () {
                   _locationTrackingHelper.startTracking(uid, 10);
                 },
               ),
-              CupertinoButton(
+              MaterialButton(
                 child: const Text('記録を停止'),
                 onPressed: () {
                   _locationTrackingHelper.stopTracking();
                 },
               ),
-              CupertinoButton(
+              MaterialButton(
                   child: const Text('履歴を全て削除'),
                   onPressed: () {
                     _locationHistoryRepository.deleteAllHistories(uid);
@@ -71,11 +73,10 @@ class _LocationSamplePageState extends State<LocationSamplePage> {
                         itemBuilder: (context, index) {
                           final LocationHistory locationHistory =
                               locationHistoryList[index];
-                          return CupertinoListTile(
+                          return ListTile(
                             title: Text('id: ${locationHistory.id}'),
                             subtitle: Text('uid: ${locationHistory.userId}'),
-                            trailing: Text(
-                                'lat: ${locationHistory.latitude}, lon: ${locationHistory.longitude}'),
+                            trailing: _getWeatherIcon(locationHistory),
                           );
                         },
                       ),
@@ -92,5 +93,14 @@ class _LocationSamplePageState extends State<LocationSamplePage> {
         ),
       ),
     );
+  }
+
+  Icon _getWeatherIcon(LocationHistory locationHistory) {
+    return switch (locationHistory.weatherType) {
+      WeatherType.clear => const Icon(Icons.sunny),
+      WeatherType.clouds => const Icon(Icons.cloud),
+      WeatherType.rain => const Icon(Icons.umbrella),
+      _ => const Icon(Icons.error)
+    };
   }
 }
