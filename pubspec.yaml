@@ -30,14 +30,14 @@ dev_dependencies:
 # you need to run `dart run flutter_native_splash:create` to generate splash
 flutter_native_splash:
   color: '#FFD72E'
-  image: 'assets/images/placeholder_usagi.png'
+  image: 'assets/images/スプラッシュ.png'
   fullscreen: true
 
 # you need to run `dart run flutter_launcher_icons:main` to generate icons
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/placeholder_usagi.png"
+  image_path: "assets/images/スプラッシュ.png"
 
 flutter:
   uses-material-design: true

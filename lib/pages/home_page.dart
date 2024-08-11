@@ -21,6 +21,25 @@ class _HomePageState extends State<HomePage> {
 
   /// お散歩した回数
   int walkingCount = 0;
+
+  /// すれ違い通知を表示するかどうか
+  bool _isVisible = false;
+
+  /// すれ違い通知を表示する
+  void _showElement() {
+    Future.delayed(Duration(seconds: 20), () {
+      setState(() {
+        _isVisible = true;
+      });
+    });
+
+    Future.delayed(Duration(seconds: 24), () {
+      setState(() {
+        _isVisible = false;
+      });
+    });
+  }
+
   late LocationTrackingHelper _locationTrackingHelper;
   late LocationHistoryRepository _locationHistoryRepository;
 
@@ -142,6 +161,7 @@ class _HomePageState extends State<HomePage> {
                 setState(() {
                   isWalking = true;
                 });
+                _showElement();
               },
               child: Image(
                 width: 240,
@@ -246,38 +266,24 @@ class _HomePageState extends State<HomePage> {
               Container(
                 height: 172,
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    StreamBuilder<int>(
-                        stream: _locationHistoryRepository
-                            .listenToTotalPoints(getDisplayName() ?? 'guest'),
-                        builder: (context, snapshot) {
-                          return Text(
-                            'さんぽスコア: ${snapshot.data ?? 0}',
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.black,
-                            ),
-                          );
-                        }),
-                    // このようにして現在の天気を利用できる
-                    StreamBuilder<LocationHistory?>(
-                        stream:
-                            _locationHistoryRepository.listenToLatestLocation(
-                                getDisplayName() ?? 'guest'),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData && snapshot.data != null) {
-                            final location = snapshot.data;
-                            return _getWeatherIcon(location!);
-                          } else {
-                            return const Text(
-                              '位置情報取得中...',
-                              style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                              ),
-                            );
-                          }
-                        })
+                    AnimatedSlide(
+                      offset: _isVisible ? Offset(0, 0) : Offset(0, -0.1),
+                      duration: Duration(milliseconds: 500),
+                      child: AnimatedOpacity(
+                        opacity: _isVisible ? 1.0 : 0.0,
+                        duration: Duration(milliseconds: 500),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                              child: Image(
+                                  width: 200,
+                                  image: AssetImage(
+                                      'assets/images/おさんぽ画面/すれ違い通知吹き出し.png'))),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
