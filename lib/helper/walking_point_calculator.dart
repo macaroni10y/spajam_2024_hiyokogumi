@@ -32,14 +32,15 @@ int calculateTotalPoints(List<LocationHistory> historyList) {
 /// 位置情報と天気からポイントを計算する
 /// どういう条件でポイントを加算・減算するかはここで変更すればイイ
 int _calculatePoints(double temperature, WeatherType weather, double distance) {
-  int points = 0;
-
-  if (weather == WeatherType.clear && temperature >= 35) {
-    // 危険な状態: ポイントを減算
-    points -= (distance * 0.5).toInt();
-  } else if (temperature < 30 || weather != WeatherType.clear) {
-    // 安全な状態: ポイントを加算
-    points += (distance).toInt();
-  }
-  return points;
+  // int points = 0;
+  //
+  // if (weather == WeatherType.clear && temperature >= 35) {
+  //   // 危険な状態: ポイントを減算
+  //   points -= (distance * 0.5).toInt();
+  // } else if (temperature < 30 || weather != WeatherType.clear) {
+  //   // 安全な状態: ポイントを加算
+  //   points += (distance).toInt();
+  // }
+  // return points;
+  return distance.toInt();
 }

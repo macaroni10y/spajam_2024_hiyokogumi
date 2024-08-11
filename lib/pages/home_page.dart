@@ -102,7 +102,10 @@ class _HomePageState extends State<HomePage> {
                               image:
                                   _feelingsAccordingToWeather(snapshot.data!));
                         } else {
-                          return const CircularProgressIndicator();
+                          return Image(
+                              width: 200,
+                              image: AssetImage(
+                                  'assets/images/ホーム画面/吹き出し_お散歩したいぷぅ.png'));
                         }
                       },
                     ),
@@ -121,7 +124,7 @@ class _HomePageState extends State<HomePage> {
             MaterialButton(
               onPressed: () {
                 _locationTrackingHelper.startTracking(
-                    getDisplayName() ?? 'guest', 10);
+                    getDisplayName() ?? 'guest', 1);
                 setState(() {
                   isWalking = true;
                 });
