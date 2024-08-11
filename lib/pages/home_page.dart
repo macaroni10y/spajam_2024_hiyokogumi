@@ -114,9 +114,20 @@ class _HomePageState extends State<HomePage> {
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Center(
-                    child: Image(
-                        width: 230,
-                        image: AssetImage('assets/images/ホーム画面/ぷぅぷぅ_静止.png')),
+                    child: StreamBuilder<LocationHistory?>(
+                      stream: _locationHistoryRepository
+                          .listenToLatestLocation(getDisplayName() ?? 'guest'),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return _characterAccordingToWeather(snapshot.data!);
+                        } else {
+                          return Image(
+                              width: 230,
+                              image: AssetImage(
+                                  'assets/images/ホーム画面/ぷぅぷぅ_静止.png'));
+                        }
+                      },
+                    ),
                   ),
                 ),
               ],
@@ -142,10 +153,21 @@ class _HomePageState extends State<HomePage> {
 
   /// 最新のLocationHistoryを元にぷぅのセリフを決める
   AssetImage _feelingsAccordingToWeather(LocationHistory locationHistory) {
-    if (locationHistory.temperature >= 35) {
-      return AssetImage('assets/images/ホーム画面/吹き出し_お散歩したいぷぅ.png');
+    if (locationHistory.temperature >= 35 + 273.15) {
+      return AssetImage('assets/images/ホーム画面/吹き出し_今は歩けない.png');
     } else {
       return AssetImage('assets/images/ホーム画面/吹き出し_お散歩したいぷぅ.png');
+    }
+  }
+
+  /// 最新のLocationHistoryを元にぷぅの画像を決める
+  Image _characterAccordingToWeather(LocationHistory locationHistory) {
+    if (locationHistory.temperature >= 35 + 273.15) {
+      return Image(
+          width: 230, image: AssetImage('assets/images/ホーム画面/ぷぅ差分_暑すぎる.png'));
+    } else {
+      return Image(
+          width: 230, image: AssetImage('assets/images/ホーム画面/ぷぅぷぅ_静止.png'));
     }
   }
 
