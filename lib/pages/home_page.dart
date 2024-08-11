@@ -148,6 +148,18 @@ class _HomePageState extends State<HomePage> {
                 image: AssetImage('assets/images/ホーム画面/散歩するボタン.png'),
               ),
             ),
+            const Expanded(
+              child: Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Image(
+                        width: 100,
+                        image: AssetImage('assets/images/ホーム画面/id_固定文字列.png')),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -285,6 +297,19 @@ class _HomePageState extends State<HomePage> {
                 child: Image(
                   width: 240,
                   image: AssetImage('assets/images/おさんぽ画面/散歩を終わるボタン.png'),
+                ),
+              ),
+              const Expanded(
+                child: Row(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Image(
+                          width: 100,
+                          image:
+                              AssetImage('assets/images/おさんぽ画面/id_固定文字列.png')),
+                    ),
+                  ],
                 ),
               ),
             ],
