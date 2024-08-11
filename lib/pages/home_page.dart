@@ -290,10 +290,19 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               Center(
-                child: Image(
-                    width: 350,
-                    image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif')),
-              ),
+                  child: StreamBuilder<int>(
+                stream: _locationHistoryRepository
+                    .listenToTotalPoints(getDisplayName() ?? 'guest'),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return _buildWalkingCharacter(snapshot.data!);
+                  }
+                  return Image(
+                    width: 240,
+                    image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif'),
+                  );
+                },
+              )),
               MaterialButton(
                 onPressed: () {
                   _locationTrackingHelper.stopTracking();
@@ -334,6 +343,22 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     );
+  }
+
+  /// おさんぽスコアを元にぷぅぷぅの姿を変える
+  Widget _buildWalkingCharacter(int walkingPoint) {
+    if (walkingPoint >= 200) {
+      return Image(
+        width: 240,
+        image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif'),
+      );
+    } else if (walkingPoint >= 100) {
+      return Image(
+          width: 230, image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif'));
+    } else {
+      return Image(
+          width: 230, image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif'));
+    }
   }
 
   Icon _getWeatherIcon(LocationHistory locationHistory) {
