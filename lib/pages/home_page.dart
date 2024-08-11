@@ -349,15 +349,15 @@ class _HomePageState extends State<HomePage> {
   Widget _buildWalkingCharacter(int walkingPoint) {
     if (walkingPoint >= 200) {
       return Image(
-        width: 240,
-        image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif'),
+        width: 300,
+        image: AssetImage('assets/images/おさんぽ画面/グラサン.gif'),
       );
-    } else if (walkingPoint >= 100) {
+    } else if (walkingPoint >= 50) {
       return Image(
-          width: 230, image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif'));
+          width: 300, image: AssetImage('assets/images/おさんぽ画面/グラサン.gif'));
     } else {
       return Image(
-          width: 230, image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif'));
+          width: 300, image: AssetImage('assets/images/おさんぽ画面/ぷぅぷぅ.gif'));
     }
   }
 
