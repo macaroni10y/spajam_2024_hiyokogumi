@@ -333,7 +333,7 @@ class _HomePageState extends State<HomePage> {
       WeatherType.clear => const Icon(Icons.sunny),
       WeatherType.clouds => const Icon(Icons.cloud),
       WeatherType.rain => const Icon(Icons.umbrella),
-      _ => const Icon(Icons.error)
+      _ => const Icon(Icons.cloud)
     };
   }
 }
