@@ -21,6 +21,7 @@ dependencies:
   http: ^1.1.0
   flutter_native_splash: ^2.3.7
   flutter_launcher_icons: ^0.13.1
+  vibration: ^1.9.0
 
 dev_dependencies:
   flutter_test:
@@ -30,14 +31,14 @@ dev_dependencies:
 # you need to run `dart run flutter_native_splash:create` to generate splash
 flutter_native_splash:
   color: '#FFD72E'
-  image: 'assets/images/スプラッシュ.png'
+  image: 'assets/images/ロゴ.png'
   fullscreen: true
 
 # you need to run `dart run flutter_launcher_icons:main` to generate icons
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/スプラッシュ.png"
+  image_path: "assets/images/ロゴ.png"
 
 flutter:
   uses-material-design: true

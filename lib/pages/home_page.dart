@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:spajam_2024_hiyokogumi/models/location_history.dart';
 import 'package:spajam_2024_hiyokogumi/pages/friend_list_page.dart';
 import 'package:spajam_2024_hiyokogumi/pages/setting_page.dart';
+import 'package:vibration/vibration.dart';
 
 import '../helper/location_tracking_helper.dart';
 import '../models/weather.dart';
@@ -27,13 +28,14 @@ class _HomePageState extends State<HomePage> {
 
   /// すれ違い通知を表示する
   void _showElement() {
-    Future.delayed(Duration(seconds: 20), () {
+    Future.delayed(Duration(seconds: 15), () {
+      Vibration.vibrate();
       setState(() {
         _isVisible = true;
       });
     });
 
-    Future.delayed(Duration(seconds: 24), () {
+    Future.delayed(Duration(seconds: 19), () {
       setState(() {
         _isVisible = false;
       });
