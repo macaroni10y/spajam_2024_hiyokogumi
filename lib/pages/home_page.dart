@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
             MaterialButton(
               onPressed: () {
                 _locationTrackingHelper.startTracking(
-                    getDisplayName() ?? 'guest', 1);
+                    getDisplayName() ?? 'guest', 3);
                 setState(() {
                   isWalking = true;
                 });
