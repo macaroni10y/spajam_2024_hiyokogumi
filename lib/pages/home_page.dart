@@ -18,6 +18,9 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isWalking = false;
   bool isDarkMode = false;
+
+  /// お散歩した回数
+  int walkingCount = 0;
   late LocationTrackingHelper _locationTrackingHelper;
   late LocationHistoryRepository _locationHistoryRepository;
 
@@ -153,6 +156,9 @@ class _HomePageState extends State<HomePage> {
 
   /// 最新のLocationHistoryを元にぷぅのセリフを決める
   AssetImage _feelingsAccordingToWeather(LocationHistory locationHistory) {
+    if (walkingCount >= 3) {
+      return AssetImage('assets/images/ホーム画面/吹き出し_いっぱい歩いた.png');
+    }
     if (locationHistory.temperature >= 35 + 273.15) {
       return AssetImage('assets/images/ホーム画面/吹き出し_今は歩けない.png');
     } else {
@@ -162,6 +168,11 @@ class _HomePageState extends State<HomePage> {
 
   /// 最新のLocationHistoryを元にぷぅの画像を決める
   Image _characterAccordingToWeather(LocationHistory locationHistory) {
+    if (walkingCount >= 3) {
+      return Image(
+          width: 230,
+          image: AssetImage('assets/images/ホーム画面/ぷぅ差分_いっぱい歩いた時.png'));
+    }
     if (locationHistory.temperature >= 35 + 273.15) {
       return Image(
           width: 230, image: AssetImage('assets/images/ホーム画面/ぷぅ差分_暑すぎる.png'));
@@ -268,6 +279,7 @@ class _HomePageState extends State<HomePage> {
                   _locationTrackingHelper.stopTracking();
                   setState(() {
                     isWalking = false;
+                    walkingCount++;
                   });
                 },
                 child: Image(
