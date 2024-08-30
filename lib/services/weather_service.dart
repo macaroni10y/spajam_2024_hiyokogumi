@@ -7,8 +7,7 @@ import '../models/weather.dart';
 /// OpenWeatherMap APIを使用して天気情報を取得する関数
 /// serviceって言っちゃったけどクラスにはしないで単独の関数として定義している
 Future<Weather> fetchWeather(double lat, double lon) async {
-  // プライベートリポジトリだからcommitしちゃうのだ 最後にrevokeするのだ
-  final apiKey = '0a4c23b242acb2d3b23e09a233339d10';
+  final apiKey = '__already_revoked__';
   final url =
       'https://api.openweathermap.org/data/2.5/weather?lat=$lat&lon=$lon&appid=$apiKey';
 
